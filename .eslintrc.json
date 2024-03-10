@@ -1,0 +1,47 @@
+{
+  "extends": [
+    "plugin:vue/vue3-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "root": true,
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module",
+    "extraFileExtensions": [
+      ".vue"
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.vue",
+        "*.vue"
+      ],
+      "parser": "vue-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser"
+      }
+    }
+  ],
+  "ignorePatterns": "src/components/ui/**/*.vue",
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "vue/multi-word-component-names": "off",
+    "vue/require-default-prop": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "singleQuote": true
+      }
+    ]
+  }
+}

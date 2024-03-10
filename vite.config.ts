@@ -1,9 +1,10 @@
-import path from "path"
-import { defineConfig } from "vite"
-import vue from "@vitejs/plugin-vue"
+import path from 'path'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import eslint from 'vite-plugin-eslint2'
 
-import tailwind from "tailwindcss"
-import autoprefixer from "autoprefixer"
+import tailwind from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
 
 export default defineConfig({
   css: {
@@ -11,10 +12,21 @@ export default defineConfig({
       plugins: [tailwind(), autoprefixer()],
     },
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    eslint({
+      cache: false,
+    }),
+  ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+  server: {
+    proxy: {
+      '/api': 'https://demo.kuzmin.online',
+      '/config.json': 'https://demo.kuzmin.online',
     },
   },
 })
