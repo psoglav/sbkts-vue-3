@@ -31,7 +31,7 @@ async function onSubmit() {
   const { username, password } = form
   loading.value = true
   await authStore.login(username, password)
-  router.push('/')
+  await router.push('/')
   loading.value = false
 }
 </script>
@@ -65,7 +65,12 @@ async function onSubmit() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button class="w-full" :disabled="submitDisabled" @click="onSubmit">
+        <Button
+          class="w-full"
+          :disabled="submitDisabled"
+          :loading="loading"
+          @click="onSubmit"
+        >
           Продолжить
         </Button>
       </CardFooter>

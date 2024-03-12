@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { Primitive, type PrimitiveProps } from 'radix-vue'
+import { Icon } from '@iconify/vue'
 import { type ButtonVariants, buttonVariants } from '.'
 import { cn } from '@/lib/utils'
 
@@ -9,6 +10,7 @@ interface Props extends PrimitiveProps {
   size?: ButtonVariants['size']
   as?: string
   class?: HTMLAttributes['class']
+  loading?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,6 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
     :as-child="asChild"
     :class="cn(buttonVariants({ variant, size }), props.class)"
   >
-    <slot />
+    <Icon v-if="loading" icon="fluent:spinner-ios-20-regular" class="spin" />
+    <slot v-else />
   </Primitive>
 </template>
