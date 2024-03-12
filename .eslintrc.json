@@ -31,7 +31,10 @@
       }
     }
   ],
-  "ignorePatterns": "src/components/ui/**/*.vue",
+  "ignorePatterns": [
+    "src/components/ui/**/*.vue",
+    "src/components/ui/**/*.ts"
+  ],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "vue/multi-word-component-names": "off",
