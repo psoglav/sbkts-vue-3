@@ -49,12 +49,11 @@ export const useAuthStore = defineStore('auth', {
         this.user = data
         storeUser(data)
       } catch (err: any) {
-        if (isAxiosError(err) && err.response?.status === 401) {
-          toast.error('Ошибка авторизации', {
+        if (isAxiosError(err)) {
+          return toast.error('Ошибка авторизации', {
             description: 'Неверный логин или пароль',
             dismissible: true,
           })
-          return
         }
 
         console.error(err.message)
