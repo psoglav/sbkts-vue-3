@@ -3,47 +3,43 @@ import { useAppStore } from '@/stores/app'
 
 export default async function (router: Router) {
   const store = useAppStore()
-  const newMenu: any[] = []
 
-  await store.fetchNavMenu()
+  await store.fetchRoutes()
 
-  store.menu.forEach((route) => {
-    route = {
-      ...route,
-      component: () => import('@/layouts/Default.vue'),
+  store.routes.forEach((parent) => {
+    parent = {
+      ...parent,
+      name: parent.path.split('/')[1],
+      component: () => import('@/layouts/Dashboard.vue'),
       redirect: 'noredirect',
     }
 
-    if (!route.children?.length) {
+    if (!parent.children?.length) {
       throw new Error('Error in setupMenu(): empty route.children')
     }
 
-    route.children = route.children.map((route) => {
-      if (route.children === null) {
-        delete route.children
+    router.addRoute(parent)
+
+    parent.children = parent.children.map((child) => {
+      if (child.children === null) {
+        delete child.children
       }
 
-      if (route.props?.model === null) {
-        route.props.model = route.path.split('/')[1]
+      const model = child.path.split('/')[1]
+
+      if (!child.props?.model) {
+        child.props.model = model
       }
 
-      if (route.props) {
-        route.props.dataRequest = route.path.split('/')[1]
+      if (child.props) {
+        child.props.dataRequest = model
       }
 
-      return {
-        ...route,
+      router.addRoute(parent.name, {
+        ...child,
         component: () => import('@/components/ListTable.vue'),
-      }
+      })
     })
-
-    route.name = route.path.split('/')[1]
-
-    if (route.children != null) {
-      newMenu.push(route)
-    }
-
-    router.addRoute(route)
   })
 
   router.addRoute({

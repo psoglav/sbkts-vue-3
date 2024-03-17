@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import { useRouter } from 'vue-router'
 
 import { Button } from '@/components/ui/button'
@@ -18,9 +17,9 @@ async function onLogout() {
 </script>
 
 <template>
-  <header class="p-4 flex justify-between items-center">
+  <header class="p-2 flex justify-between items-center border-b border-border">
     <div class="text-lg font-bold px-2">{{ appStore.config?.name }}</div>
-    <div class="space-x-2">
+    <div class="flex items-center gap-2">
       <ThemeToggle />
       <Button
         v-if="authStore.isAuthenticated"

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useColorMode } from '@vueuse/core'
-import { Icon } from '@iconify/vue'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -8,14 +6,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useAppStore } from '@/stores/app'
 
-const mode = useColorMode()
+const appStore = useAppStore()
 </script>
 
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="outline">
+      <Button variant="outline" size="icon">
         <Icon
           icon="radix-icons:moon"
           class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
@@ -28,9 +27,15 @@ const mode = useColorMode()
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
-      <DropdownMenuItem @click="mode = 'light'"> Light </DropdownMenuItem>
-      <DropdownMenuItem @click="mode = 'dark'"> Dark </DropdownMenuItem>
-      <DropdownMenuItem @click="mode = 'auto'"> System </DropdownMenuItem>
+      <DropdownMenuItem @click="appStore.setTheme('light')">
+        Light
+      </DropdownMenuItem>
+      <DropdownMenuItem @click="appStore.setTheme('dark')">
+        Dark
+      </DropdownMenuItem>
+      <DropdownMenuItem @click="appStore.setTheme('auto')">
+        System
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

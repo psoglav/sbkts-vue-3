@@ -1,11 +1,14 @@
 import axios from 'axios'
 import api from '@/api/client'
 import { defineStore } from 'pinia'
+import { useColorMode } from '@vueuse/core'
+
+const theme = useColorMode()
 
 export const useAppStore = defineStore('app', {
   state: (): State => ({
     config: null,
-    menu: [],
+    routes: [],
   }),
   actions: {
     async fetchConfig() {
@@ -17,13 +20,16 @@ export const useAppStore = defineStore('app', {
         throw new Error('Failed to fetch app config: ' + e.message)
       }
     },
-    async fetchNavMenu() {
+    async fetchRoutes() {
       try {
         const { data } = await api.get('/utils/MainMenu')
-        this.menu = data
+        this.routes = data
       } catch (e: any) {
         throw new Error('Failed to fetch main menu: ' + e.message)
       }
+    },
+    setTheme(value: 'light' | 'dark' | 'auto') {
+      theme.value = value
     },
   },
 })
@@ -58,5 +64,5 @@ type MainMenuItem = {
 
 interface State {
   config: AppConfig | null
-  menu: MainMenuItem[]
+  routes: MainMenuItem[]
 }
