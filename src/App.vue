@@ -1,34 +1,12 @@
-<script lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+<script lang="ts" setup>
 import { AppHeader } from '@/components/app-header'
 import { Toaster } from '@/components/ui/sonner'
-import { Default, Dashboard } from '@/layouts'
-
-export default {
-  components: {
-    AppHeader,
-    Toaster,
-    Default,
-    Dashboard,
-  },
-  setup() {
-    const route = useRoute()
-    const layout = computed(() => route.meta.layout ?? 'default')
-
-    return {
-      layout,
-    }
-  },
-}
 </script>
 
 <template>
   <div class="h-[100dvh] flex flex-col">
     <app-header />
-    <component :is="layout">
-      <router-view />
-    </component>
+    <router-view />
     <toaster />
   </div>
 </template>

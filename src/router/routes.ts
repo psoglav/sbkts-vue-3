@@ -12,9 +12,4 @@ export default [
     name: 'Login',
     component: () => import('@/views/Login.vue'),
   },
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
-    component: () => import('@/views/404.vue'),
-  },
 ]

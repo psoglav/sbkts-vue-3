@@ -5,6 +5,6 @@ import Sidebar from '@/components/Sidebar.vue'
 <template>
   <div class="dashboard-layout">
     <sidebar />
-    <slot />
+    <router-view />
   </div>
 </template>
