@@ -21,6 +21,10 @@ const navMenuItems = computed(() => {
 })
 
 const openedGroup = ref(0)
+
+function toggle(i: number) {
+  openedGroup.value = openedGroup.value === i ? -1 : i
+}
 </script>
 
 <template>
@@ -31,7 +35,7 @@ const openedGroup = ref(0)
       :title="group.title"
       :icon="group.icon"
       :open="openedGroup === i"
-      @update:open="openedGroup = i"
+      @update:open="toggle(i)"
     >
       <NavigationLink
         v-for="(item, k) in group.children"
