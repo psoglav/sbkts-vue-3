@@ -1,5 +1,5 @@
 <script setup>
-import { AppHeader } from '@/components/app-header'
+import { Header } from '@/components/header'
 import Sidebar from '@/components/Sidebar.vue'
 </script>
 
@@ -8,7 +8,7 @@ import Sidebar from '@/components/Sidebar.vue'
     <div class="flex h-full">
       <sidebar />
       <div class="grow">
-        <app-header />
+        <Header />
         <router-view />
       </div>
     </div>
