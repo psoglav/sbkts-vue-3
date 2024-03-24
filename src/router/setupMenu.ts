@@ -6,7 +6,7 @@ export default async function (router: Router) {
 
   await store.fetchRoutes()
 
-  store.routes.forEach((parent) => {
+  store.routes.forEach((parent, i) => {
     parent = {
       ...parent,
       name: parent.path.split('/')[1],
@@ -18,9 +18,15 @@ export default async function (router: Router) {
       throw new Error('Error in setupMenu(): empty route.children')
     }
 
+    // Set aliased route for /.
+    if (i === 0) {
+      parent.alias = '/'
+      parent.redirect = parent.path + '/' + parent.children[0].path
+    }
+
     router.addRoute(parent)
 
-    parent.children = parent.children.map((child) => {
+    parent.children.forEach((child) => {
       if (child.children === null) {
         delete child.children
       }
