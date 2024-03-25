@@ -9,7 +9,9 @@ import Sidebar from '@/components/Sidebar.vue'
       <sidebar />
       <div class="grow">
         <Header />
-        <router-view />
+        <Suspense>
+          <router-view />
+        </Suspense>
       </div>
     </div>
   </div>
