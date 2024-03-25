@@ -21,29 +21,31 @@ export default async function (router: Router) {
     // Set aliased route for /.
     if (i === 0) {
       parent.alias = '/'
-      parent.redirect = parent.path + '/' + parent.children[0].path
+      parent.redirect =
+        parent.path + '/' + parent.children[0].path.replace('api/', '')
     }
 
-    router.addRoute(parent)
+    router.addRoute({
+      ...parent,
+      children: [],
+    })
 
     parent.children.forEach((child) => {
       if (child.children === null) {
         delete child.children
       }
 
-      const model = child.path.split('/')[1]
-
+      // Provide model to props for API requests.
       if (!child.props?.model) {
-        child.props.model = model
+        child.props.model = child.path.split('/')[1]
       }
 
-      if (child.props) {
-        child.props.dataRequest = model
-      }
+      // Remove useless string from the path.
+      child.path = child.path.replace('api/', '')
 
       router.addRoute(parent.name, {
         ...child,
-        component: () => import('@/components/ListTable.vue'),
+        component: () => import('@/components/table/ListTable.vue'),
       })
     })
   })
