@@ -28,8 +28,7 @@ const items = computed(() => {
           <BreadcrumbLink
             as-child
             :class="{
-              'pointer-events-none':
-                item.redirect === 'noredirect' || $route.path === item.path,
+              'pointer-events-none': Boolean(item.children),
               'font-normal text-foreground': $route.path === item.path,
             }"
           >
