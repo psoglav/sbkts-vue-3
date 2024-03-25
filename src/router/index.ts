@@ -12,10 +12,8 @@ router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   const appStore = useAppStore()
 
-  const config = await appStore.fetchConfig()
-
-  if (config) {
-    document.title = config.title
+  if (appStore.config) {
+    document.title = appStore.config.title
   }
 
   if (to.path !== '/login' && !authStore.isAuthenticated) {
